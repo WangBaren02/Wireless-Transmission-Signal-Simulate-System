@@ -1,0 +1,141 @@
+module C_2024_carrier
+(
+	input			sys_clk,
+	input			sys_rst_n,
+		
+	input			spi_scl,
+	input			spi_sdi,
+	input			spi_sel,
+	output			spi_sdo,
+
+//	input			param_setting_done,
+
+	output	[7:0]	DAC_data_direct,
+	output			DAC_clk_direct,
+
+	output	[7:0]	DAC_data_multi,
+	output			DAC_clk_multi
+);
+////////////////////////////////
+//pll
+	wire	clk_120M;
+	wire	clk_21M;
+
+	wire	locked;
+
+	pll_ip	pll_ip_inst 
+	(
+		.areset (~sys_rst_n),
+		.inclk0 (sys_clk),
+		.c0 	(clk_120M),
+		.c1 	(clk_21M),
+		.locked (locked)
+	);
+
+	wire	rst_n;
+
+	assign rst_n = locked & sys_rst_n;
+//////////////////////////////////////////////////
+//SPI_STM32F4
+	wire	[7:0]       parameter_frequency_num ;
+	wire	[7:0]       parameter_delay_time    ;
+	wire	[7:0]       parameter_phase         ;
+	wire				spi_start				;
+	wire				spi_done				;
+
+	SPI_STM32F4 
+	#(
+	    .width						(6'd32)
+	)
+	u_SPI_STM32F4
+	(
+	    //system_ctrl
+	    .clk         				(clk_21M),
+	    .rst_n       				(rst_n),
+	    //data
+		.parameter_frequency_num 	(parameter_frequency_num),
+		.parameter_delay_time    	(parameter_delay_time),
+		.parameter_phase         	(parameter_phase),
+	    //spi_ctrl	
+	    .spi_scl     				(spi_scl),
+	    .spi_sdi     				(spi_sdi),
+	    .spi_sdo     				(spi_sdo),
+	    .spi_sel     				(spi_sel),
+		.spi_start					(spi_start),
+		.spi_done					(spi_done)
+	);
+////////////////////////////////////////////////////////////////////
+	DDS_time_delay u_DDS_time_delay
+	(
+	    .clk                 		(clk_120M),//120M-----8.3333ns
+	    .rst_n               		(rst_n),
+	    .parameter_frequency_num    (parameter_frequency_num[5:0]),//6'd40	//parameter_frequency_num[5:0]
+	    .parameter_delay_time		(parameter_delay_time),//8'b0	//parameter_delay_time
+		.parameter_phase			(parameter_phase),//8'b0	//parameter_phase
+
+		.DDS_clr					(spi_start),
+		.DDS_En						(spi_done),
+	
+	    .direct_dac_clk      		(DAC_clk_direct),
+	    .direct_data         		(DAC_data_direct),
+
+	    .multi_dac_clk       		(DAC_clk_multi),
+	    .multi_data          		(DAC_data_multi)
+	);
+///////////////////////////////////////////
+	// reg		param_setting_done_reg;
+
+	// always@( posedge clk_120M or negedge rst_n )
+	// 	begin
+	// 		if(!rst_n) param_setting_done_reg <= 1'b0;
+	// 		else param_setting_done_reg <= param_setting_done;
+	// 	end
+
+	// wire	valid_param;
+
+	// assign valid_param = ( ~ param_setting_done ) & param_setting_done_reg;
+//////////////////////////////////////////////////////////////////////////////
+//	reg  	[5:0]	frequency_reg;
+//
+//	always@( posedge clk_120M or negedge rst_n )
+//		begin
+//			if(!rst_n) frequency_reg <= 6'b0;
+//			else if(valid_param) frequency_reg <= frequency;
+//			else frequency_reg <= frequency_reg;
+//		end
+//
+//	reg  	[5:0]	phase_reg;
+//
+//	always@( posedge clk_120M or negedge rst_n )
+//		begin
+//			if(!rst_n) phase_reg <= 6'b0;
+//			else if(valid_param) phase_reg <= phase;
+//			else phase_reg <= phase_reg;
+//		end
+////////////////////////////////////
+////30~40MHz直达传输信号
+//	DDS_direct DDS_direct_inst
+//	(
+//		.clk 				(clk_120M),
+//		.rst_n 				(rst_n),
+//	
+//		.frequency_direct 	(frequency_reg),
+//		
+//		.dac_data 			(DAC_data_direct),
+//		.dac_clk 			(DAC_clk_direct)
+//	);
+/////////////////////////////////////////////////////
+////30~40MHz多径传输信号
+//	DDS_multi DDS_multi_inst
+//	(
+//		.clk 				(clk_120M),
+//		.rst_n 				(rst_n),
+//	
+//		.frequency_multi 	(frequency_reg),
+//		.phase 				(phase_reg),
+//		
+//		.dac_data 			(DAC_data_multi),
+//		.dac_clk 			(DAC_clk_multi)
+//	);
+
+endmodule

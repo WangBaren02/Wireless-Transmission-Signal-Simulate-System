@@ -1,0 +1,16 @@
+Analysis & Synthesis Status : Successful - Fri Aug 02 09:39:36 2024
+Quartus Prime Version : 17.1.0 Build 590 10/25/2017 SJ Standard Edition
+Revision Name : C_2024_carrier
+Top-level Entity Name : C_2024_carrier
+Family : MAX 10
+Total logic elements : 1,418
+    Total combinational functions : 775
+    Dedicated logic registers : 1,138
+Total registers : 1138
+Total pins : 24
+Total virtual pins : 0
+Total memory bits : 165,392
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 1
+UFM blocks : 0
+ADC blocks : 0

@@ -1,0 +1,293 @@
+module test_DDS
+(
+	input			sys_clk,
+	input			sys_rst_n,
+
+//	input			param_setting_done,
+//
+//	input	[3:0]	select,
+
+//	output	[7:0]	DAC_data_2M,
+//	output			DAC_clk_2M,
+
+	output	[7:0]	DAC_data_direct,
+	output			DAC_clk_direct,
+
+//	output	[7:0]	DAC_data_multi,
+//	output			DAC_clk_multi,
+
+	output			AD9708_GND
+);
+////////////////////////////////
+//pll
+	wire	clk_120M;
+	wire	clk_240M;
+	wire	clk_160M;
+
+	wire	locked;
+
+	pll_ip	pll_ip_inst 
+	(
+		.areset (~sys_rst_n),
+		.inclk0 (sys_clk),
+		.c0 	(clk_120M),
+		.c1  	(clk_240M),
+		.c2 	(clk_160M),
+		.locked (locked)
+	);
+
+	wire	rst_n;
+
+	assign rst_n = locked & sys_rst_n;
+// ///////////////////////////////////////
+// 	reg 	[5:0]	f_direct;
+// //	reg 	[5:0]	f_multi;
+// 	reg 	[7:0]	p_multi;
+
+// 	always@( posedge clk_120M or negedge rst_n )
+// 		begin
+// 			if(!rst_n)
+// 				begin
+// 					f_direct <= 6'b0;
+// //					f_multi  <= 6'b0;
+// 					p_multi  <= 8'b0;
+// 				end
+// 			else 
+// 				begin
+// 					case(select)
+// 					4'b0000:
+// 						begin
+// 							f_direct <= 6'd30;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd90;
+// 						end
+// 					4'b0001:
+// 						begin
+// 							f_direct <= 6'd30;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b0010:
+// 						begin
+// 							f_direct <= 6'd31;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b0011:
+// 						begin
+// 							f_direct <= 6'd32;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b0100:
+// 						begin
+// 							f_direct <= 6'd33;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b0101:
+// 						begin
+// 							f_direct <= 6'd34;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b0110:
+// 						begin
+// 							f_direct <= 6'd35;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b0111:
+// 						begin
+// 							f_direct <= 6'd36;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b1000:
+// 						begin
+// 							f_direct <= 6'd37;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b1001:
+// 						begin
+// 							f_direct <= 6'd37;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b1010:
+// 						begin
+// 							f_direct <= 6'd38;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b1011:
+// 						begin
+// 							f_direct <= 6'd38;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b1100:
+// 						begin
+// 							f_direct <= 6'd39;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b1101:
+// 						begin
+// 							f_direct <= 6'd39;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b1110:
+// 						begin
+// 							f_direct <= 6'd40;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd0;
+// 						end
+// 					4'b1111:
+// 						begin
+// 							f_direct <= 6'd40;
+// //							f_multi  <= 6'd0;
+// 							p_multi  <= 8'd90;
+// 						end
+// 					default:
+// 						begin
+// 							f_direct <= f_direct;
+// //							f_multi  <= f_multi;
+// 							p_multi  <= p_multi;
+// 						end
+// 					endcase
+// 				end
+// 		end
+// ////////////////////////////////////
+// 	reg		param_setting_done_reg;
+
+// 	always@( posedge clk_120M or negedge rst_n )
+// 		begin
+// 			if(!rst_n) param_setting_done_reg <= 1'b0;
+// 			else param_setting_done_reg <= param_setting_done;
+// 		end
+
+// 	wire	valid_param;
+
+// 	assign valid_param = ( ~ param_setting_done ) & param_setting_done_reg;
+// //////////////////////////////////////////////////////////////////////////////
+// 	reg  	[5:0]	frequency_direct_reg;
+
+// 	always@( posedge clk_120M or negedge rst_n )
+// 		begin
+// 			if(!rst_n) frequency_direct_reg <= 6'b0;
+// 			else if(valid_param) frequency_direct_reg <= f_direct;
+// 			else frequency_direct_reg <= frequency_direct_reg;
+// 		end
+
+// //	reg 	[5:0]	frequency_multi_reg;
+// //
+// //	always@( posedge clk_120M or negedge rst_n )
+// //		begin
+// //			if(!rst_n) frequency_multi_reg <= 6'b0;
+// //			else if(valid_param) frequency_multi_reg <= f_multi;
+// //			else frequency_multi_reg <= frequency_multi_reg;
+// //		end
+// //
+// 	reg 	[7:0]	phase_reg;
+
+// 	always@( posedge clk_120M or negedge rst_n )
+// 		begin
+// 			if(!rst_n) phase_reg <= 8'b0;
+// 			else if(valid_param) phase_reg <= p_multi;
+// 			else phase_reg <= phase_reg;
+// 		end	
+
+// ///////////////////////////////////
+// //2MHz调制信号
+// 	wire	[7:0]	DAC_data_2M;
+
+// 	DDS_lite DDS_lite_inst
+// 	(
+// 		.clk 	 	(clk_120M),
+// 		.rst_n 		(rst_n),
+		
+// 		.dac_data 	(DAC_data_2M),
+// 		.dac_clk 	(DAC_clk_2M)
+// 	);
+
+// 	wire			[7:0]	depth_con;
+// 	wire	signed	[7:0]	DAC_data_2M_wa/* synthesis keep="1" */;
+
+// 	assign depth_con = 8'd77;
+// 	assign DAC_data_2M_wa = DAC_data_2M;// - 8'd128;// * depth_con >> 8;
+// ////////////////////////////////////
+// //30~40MHz直达传输信号
+// 	wire	[7:0]	DAC_data_direct_reg;
+
+// 	DDS_direct DDS_direct_inst
+// 	(
+// 		.clk 				(clk_120M),
+// 		.rst_n 				(rst_n),
+	
+// 		.frequency_direct 	(6'd40),
+		
+// 		.dac_data 			(DAC_data_direct_reg),
+// 		.dac_clk 			(DAC_clk_direct)
+// 	);
+
+// 	wire	signed	[7:0]	DAC_data_direct_reg_wa/* synthesis keep="1" */;
+
+// 	assign DAC_data_direct_reg_wa = DAC_data_direct_reg - 8'd128;
+// //////////////////////////////////////////////////////////////////
+// 	wire	[15:0]	DAC_data_direct_16;
+
+// 	multi_ip multi_ip_inst 
+// 	(
+// 		.dataa 	(DAC_data_2M_wa),
+// 		.datab 	(DAC_data_direct_reg_wa),
+// 		.result (DAC_data_direct_16)
+// 	);
+
+// 	assign DAC_data_direct = DAC_data_direct_16[15:8];
+///////////////////////////////////
+//2MHz调制信号
+	wire	[7:0]	DAC_data_2M;
+
+	DDS_lite DDS_lite_inst
+	(
+		.clk 	 	(clk_120M),
+		.rst_n 		(rst_n),
+		
+		.dac_data 	(DAC_data_2M),
+		.dac_clk 	(DAC_clk_2M)
+	);
+
+////////////////////////////////////
+//30~40MHz直达传输信号
+	wire	[7:0]	DAC_data_direct_reg;
+
+	DDS_direct DDS_direct_inst
+	(
+		.clk 				(clk_120M),
+		.rst_n 				(rst_n),
+	
+		.frequency_direct 	(frequency_direct_reg),
+		
+		.dac_data 			(DAC_data_direct),
+		.dac_clk 			(DAC_clk_direct)
+	);
+///////////////////////////////////////////////////
+//30~40MHz多径传输信号
+	DDS_multi DDS_multi_inst
+	(
+		.clk 				(clk_120M),
+		.rst_n 				(rst_n),
+	
+		.frequency_multi 	(frequency_direct_reg),
+		.phase 				(phase_reg),
+		
+		.dac_data 			(DAC_data_multi),
+		.dac_clk 			(DAC_clk_multi)
+	);
+///////////////////////////////////////////////////
+	assign AD9708_GND = 1'b0;
+
+endmodule

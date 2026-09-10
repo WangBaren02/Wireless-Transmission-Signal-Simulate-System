@@ -1,0 +1,281 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/Quartus_code/C_2024_2M/simulation/modelsim
+vC_2024_2M
+Z1 !s110 1722503005
+!i10b 1
+!s100 _zZaQaDcN:75Ag:jQG3f13
+I7VkT5CM5oI=aWABghEWga1
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1722502056
+8D:/Quartus_code/C_2024_2M/rtl/TOP/C_2024_2M.v
+FD:/Quartus_code/C_2024_2M/rtl/TOP/C_2024_2M.v
+L0 1
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1722503005.000000
+!s107 D:/Quartus_code/C_2024_2M/rtl/TOP/C_2024_2M.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/rtl/TOP|D:/Quartus_code/C_2024_2M/rtl/TOP/C_2024_2M.v|
+!i113 1
+Z5 o-vlog01compat -work work
+!s92 -vlog01compat -work work +incdir+D:/Quartus_code/C_2024_2M/rtl/TOP
+Z6 tCvgOpt 0
+n@c_2024_2@m
+vdds_ctrl_lite
+R1
+!i10b 1
+!s100 =Z5>BLGWVDoI8ShgIFKo72
+Io7BkHa>MnoDcz1Rm=>K7f3
+R2
+R0
+w1722227844
+8D:/Quartus_code/C_2024_2M/rtl/DDS/dds_ctrl_lite.v
+FD:/Quartus_code/C_2024_2M/rtl/DDS/dds_ctrl_lite.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/rtl/DDS/dds_ctrl_lite.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/rtl/DDS|D:/Quartus_code/C_2024_2M/rtl/DDS/dds_ctrl_lite.v|
+!i113 1
+R5
+Z7 !s92 -vlog01compat -work work +incdir+D:/Quartus_code/C_2024_2M/rtl/DDS
+R6
+vdds_ctrl_lite_phase
+R1
+!i10b 1
+!s100 UdLQBGZdELiiEnHKJjP7H1
+IEm8GCiUFm_LPX1EaMUog^2
+R2
+R0
+w1722322501
+8D:/Quartus_code/C_2024_2M/rtl/DDS/dds_ctrl_lite_phase.v
+FD:/Quartus_code/C_2024_2M/rtl/DDS/dds_ctrl_lite_phase.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/rtl/DDS/dds_ctrl_lite_phase.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/rtl/DDS|D:/Quartus_code/C_2024_2M/rtl/DDS/dds_ctrl_lite_phase.v|
+!i113 1
+R5
+R7
+R6
+vDDS_lite
+R1
+!i10b 1
+!s100 znF28J0mkKVM8>KnERUHj3
+I[mN55;d4nkTS`H<JSKM^03
+R2
+R0
+w1722502999
+8D:/Quartus_code/C_2024_2M/rtl/DDS/DDS_lite.v
+FD:/Quartus_code/C_2024_2M/rtl/DDS/DDS_lite.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/rtl/DDS/DDS_lite.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/rtl/DDS|D:/Quartus_code/C_2024_2M/rtl/DDS/DDS_lite.v|
+!i113 1
+R5
+R7
+R6
+n@d@d@s_lite
+vDDS_lite_phase
+R1
+!i10b 1
+!s100 IdHdIFNDbz3ciQN6n4g7[3
+INVRT0fM1z;MM`khl]T_JL2
+R2
+R0
+w1722500268
+8D:/Quartus_code/C_2024_2M/rtl/DDS/DDS_lite_phase.v
+FD:/Quartus_code/C_2024_2M/rtl/DDS/DDS_lite_phase.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/rtl/DDS/DDS_lite_phase.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/rtl/DDS|D:/Quartus_code/C_2024_2M/rtl/DDS/DDS_lite_phase.v|
+!i113 1
+R5
+R7
+R6
+n@d@d@s_lite_phase
+vDDS_time_delay_2M
+R1
+!i10b 1
+!s100 @FBm<=LhF3T5en27TTB2^1
+IzA=]UTbhD29nICHCz6K<m2
+R2
+R0
+w1722499827
+8D:/Quartus_code/C_2024_2M/rtl/DDS/DDS_time_delay_2M.v
+FD:/Quartus_code/C_2024_2M/rtl/DDS/DDS_time_delay_2M.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/rtl/DDS/DDS_time_delay_2M.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/rtl/DDS|D:/Quartus_code/C_2024_2M/rtl/DDS/DDS_time_delay_2M.v|
+!i113 1
+R5
+R7
+R6
+n@d@d@s_time_delay_2@m
+vpll_ip
+R1
+!i10b 1
+!s100 [zkMcFKSLfDjJh:H^c^IE2
+I2X0m>;KhhShKK>Tl@R2TL0
+R2
+R0
+w1722339180
+8D:/Quartus_code/C_2024_2M/ip/pll/pll_ip.v
+FD:/Quartus_code/C_2024_2M/ip/pll/pll_ip.v
+Z8 L0 39
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/ip/pll/pll_ip.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/ip/pll|D:/Quartus_code/C_2024_2M/ip/pll/pll_ip.v|
+!i113 1
+R5
+!s92 -vlog01compat -work work +incdir+D:/Quartus_code/C_2024_2M/ip/pll
+R6
+vpll_ip_altpll
+R1
+!i10b 1
+!s100 @zPi<X?aCM196TJn=Mg_n3
+I@UR4^OUDE;czdin=>e;1O3
+R2
+R0
+w1722339357
+8D:/Quartus_code/C_2024_2M/db/pll_ip_altpll.v
+FD:/Quartus_code/C_2024_2M/db/pll_ip_altpll.v
+L0 30
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/db/pll_ip_altpll.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/db|D:/Quartus_code/C_2024_2M/db/pll_ip_altpll.v|
+!i113 1
+R5
+!s92 -vlog01compat -work work +incdir+D:/Quartus_code/C_2024_2M/db
+R6
+vrom_wave_sin
+R1
+!i10b 1
+!s100 _Eg8kBL@jlbjV]S[RoD2^0
+I?okHd497I=>F7N8b6F<4K3
+R2
+R0
+w1722497730
+8D:/Quartus_code/C_2024_2M/ip/rom/rom_wave_sin.v
+FD:/Quartus_code/C_2024_2M/ip/rom/rom_wave_sin.v
+R8
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/ip/rom/rom_wave_sin.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/ip/rom|D:/Quartus_code/C_2024_2M/ip/rom/rom_wave_sin.v|
+!i113 1
+R5
+!s92 -vlog01compat -work work +incdir+D:/Quartus_code/C_2024_2M/ip/rom
+R6
+vSPI
+R1
+!i10b 1
+!s100 7QHn=Cl0UhAM5JUV2Oek20
+IZzlO2][1V9>SBMRkcGNKH1
+R2
+R0
+w1722244862
+8D:/Quartus_code/C_2024_2M/rtl/SPI/SPI.v
+FD:/Quartus_code/C_2024_2M/rtl/SPI/SPI.v
+L0 2
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/rtl/SPI/SPI.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/rtl/SPI|D:/Quartus_code/C_2024_2M/rtl/SPI/SPI.v|
+!i113 1
+R5
+Z9 !s92 -vlog01compat -work work +incdir+D:/Quartus_code/C_2024_2M/rtl/SPI
+R6
+n@s@p@i
+vSPI_STM32F4
+R1
+!i10b 1
+!s100 0OJK=0=TgD8[ZCY6e0MGC3
+I?OBMN^cnWSATj^:Z2cJOF3
+R2
+R0
+w1722500041
+8D:/Quartus_code/C_2024_2M/rtl/SPI/SPI_STM32F4.v
+FD:/Quartus_code/C_2024_2M/rtl/SPI/SPI_STM32F4.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/rtl/SPI/SPI_STM32F4.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/rtl/SPI|D:/Quartus_code/C_2024_2M/rtl/SPI/SPI_STM32F4.v|
+!i113 1
+R5
+R9
+R6
+n@s@p@i_@s@t@m32@f4
+vtb_DDS_lite
+R1
+!i10b 1
+!s100 _Yz<^Go01X2T`F:ZD]21d2
+I@gP2_YOmai]XWEDUm]]=J0
+R2
+R0
+w1722502731
+8D:/Quartus_code/C_2024_2M/rtl/DDS/tb/tb_DDS_lite.v
+FD:/Quartus_code/C_2024_2M/rtl/DDS/tb/tb_DDS_lite.v
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/Quartus_code/C_2024_2M/rtl/DDS/tb/tb_DDS_lite.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Quartus_code/C_2024_2M/rtl/DDS/tb|D:/Quartus_code/C_2024_2M/rtl/DDS/tb/tb_DDS_lite.v|
+!i113 1
+R5
+!s92 -vlog01compat -work work +incdir+D:/Quartus_code/C_2024_2M/rtl/DDS/tb
+R6
+ntb_@d@d@s_lite

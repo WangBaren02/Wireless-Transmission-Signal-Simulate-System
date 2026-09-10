@@ -1,0 +1,147 @@
+module DDS_lite
+(
+	input					clk,
+	input					rst_n,
+	input					En,
+	input					clr,
+
+	input			[3:0]	parameter_modulation,
+//	input			[3:0]	parameter_effective_value,
+//	input			[7:0]	parameter_70,
+	
+	output	reg 	[7:0]	dac_data,
+	output					dac_clk
+);
+	reg		[3:0]   En_r;
+always @(posedge clk or negedge rst_n) begin
+	if(~rst_n)
+		En_r <= 3'd0;
+	else
+		En_r <= {En_r[2],En_r[1],En_r[0],En};
+end
+	reg				DDS_en;
+always @(posedge clk or negedge rst_n or posedge clr) begin
+	if((~rst_n)||(clr))
+		DDS_en <= 1'b0;
+	else if(En_r[3])
+		DDS_en <= 1'b1;
+	else 
+		DDS_en <= DDS_en;
+end
+//	wire		[35:0]	f_word;	//F_WORD=2^累加寄存器位�?*输出频率/时钟频率
+	wire	[7:0]	dac_data_reg;	
+
+	dds_ctrl_lite	dds_ctrl_lite_inst
+	(
+		.clk		(clk),
+		.rst_n		(DDS_en),
+		.f_word		(36'd1145324612),
+	
+		.dac_data	(dac_data_reg)
+	);
+
+	always@(posedge clk or negedge rst_n)	
+		begin
+			if(!rst_n) dac_data <= 8'b0;
+			else
+				case(parameter_modulation)
+				4'd3:	dac_data <= {2'b0,dac_data_reg[7:2]} + {4'b0,dac_data_reg[7:4]} + 6'd45;
+				4'd4:	dac_data <= {2'b0,dac_data_reg[7:2]} + {3'b0,dac_data_reg[7:3]} + 6'd38;
+				4'd5:	dac_data <= {1'b0,dac_data_reg[7:1]} + 6'd32;
+				4'd6:	dac_data <= {1'b0,dac_data_reg[7:1]} + {3'b0,dac_data_reg[7:3]} + 5'd26;
+				4'd7:	dac_data <= {1'b0,dac_data_reg[7:1]} + {3'b0,dac_data_reg[7:3]} + + {4'b0,dac_data_reg[7:4]} + 5'd19;
+				4'd8:	dac_data <= {1'b0,dac_data_reg[7:1]} + {2'b0,dac_data_reg[7:2]} + 4'd12;
+				4'd9:	dac_data <= {1'b0,dac_data_reg[7:1]} + {2'b0,dac_data_reg[7:2]} + + {3'b0,dac_data_reg[7:3]} + 3'd6;
+				4'd10:	dac_data <= dac_data_reg;
+				default:dac_data <= dac_data;
+				endcase
+		end
+
+	// always@( posedge clk or negedge rst_n )
+	// 	begin
+	// 		if(!rst_n) dac_data <= 8'b0;
+	// 		else 
+	// 			case(parameter_70)
+	// 			8'd1:	dac_data <= { 5'd0 , dac_data_reg[7:5] } + 3'd5;
+	// 			8'd2:	dac_data <= { 4'd0 , dac_data_reg[7:4] } + 4'd10;
+	// 			8'd3:	dac_data <= { 4'd0 , dac_data_reg[7:4] } + { 5'd0 , dac_data_reg[7:5] } + 5'd15;
+	// 			8'd4:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + 5'd20;
+	// 			8'd5:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 5'd0 , dac_data_reg[7:5] } + 6'd25;
+	// 			8'd6:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 4'd0 , dac_data_reg[7:4] } + 6'd30;
+	// 			8'd7:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 4'd0 , dac_data_reg[7:4] } + { 5'd0 , dac_data_reg[7:5] } + 6'd35;
+	// 			8'd8:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + 6'd40;
+	// 			8'd9:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 5'd0 , dac_data_reg[7:5] } + 6'd45;
+	// 			8'd10:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 4'd0 , dac_data_reg[7:4] }  + 7'd50;
+
+	// 			8'd11:	dac_data <= { 5'd0 , dac_data_reg[7:5] } + { 6'd0 , dac_data_reg[7:6] } + 3'd4;
+	// 			8'd12:	dac_data <= { 4'd0 , dac_data_reg[7:5] } + { 5'd0 , dac_data_reg[7:6] } + 4'd8;
+	// 			8'd13:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + 4'd12;
+	// 			8'd14:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 4'd0 , dac_data_reg[7:4] } + 5'd17;
+	// 			8'd15:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 4'd0 , dac_data_reg[7:4] } + { 5'd0 , dac_data_reg[7:5] } + 5'd21;
+	// 			8'd16:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + 5'd25;
+	// 			8'd17:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 4'd0 , dac_data_reg[7:4] } + 5'd28;
+	// 			8'd18:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 4'd0 , dac_data_reg[7:4] } + { 5'd0 , dac_data_reg[7:5] }+ 6'd33;
+	// 			8'd19:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 3'd0 , dac_data_reg[7:3] } + 6'd38;
+	// 			8'd20:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + 6'd42;
+
+	// 			8'd21:	dac_data <= { 4'd0 , dac_data_reg[7:5] } + 2'd3;
+	// 			8'd22:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + 3'd7;
+	// 			8'd23:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 5'd0 , dac_data_reg[7:5] } + 4'd10;
+	// 			8'd24:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + 4'd14;
+	// 			8'd25:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 6'd0 , dac_data_reg[7:6] } + 5'd17;
+	// 			8'd26:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 4'd0 , dac_data_reg[7:4] } + 5'd21;
+	// 			8'd27:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 3'd0 , dac_data_reg[7:3] } + 5'd25;
+	// 			8'd28:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 3'd0 , dac_data_reg[7:3] } + { 4'd0 , dac_data_reg[7:4] } + 5'd28;
+	// 			8'd29:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + 5'd31;
+	// 			8'd30:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 5'd0 , dac_data_reg[7:5] } + 6'd35;
+
+	// 			8'd31:	dac_data <= { 4'd0 , dac_data_reg[7:4] } + 2'd3;
+	// 			8'd32:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + 3'd5;
+	// 			8'd33:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 4'd0 , dac_data_reg[7:4] } + 4'd8;
+	// 			8'd34:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + 4'd11;
+	// 			8'd35:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 4'd0 , dac_data_reg[7:4] } + 5'd14;
+	// 			8'd36:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 3'd0 , dac_data_reg[7:3] }  + 5'd16;
+	// 			8'd37:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 3'd0 , dac_data_reg[7:3] } + { 4'd0 , dac_data_reg[7:4] } + 5'd20;
+	// 			8'd38:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + 5'd22;
+	// 			8'd39:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 4'd0 , dac_data_reg[7:4] } + 5'd25;
+	// 			8'd40:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 3'd0 , dac_data_reg[7:3] } + 5'd29;
+
+	// 			8'd41:	dac_data <= { 4'd0 , dac_data_reg[7:4] } + { 6'd0 , dac_data_reg[7:6] } + 3'd2;
+	// 			8'd42:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 5'd0 , dac_data_reg[7:5] } + 3'd4;
+	// 			8'd43:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + 3'd6;
+	// 			8'd44:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 5'd0 , dac_data_reg[7:5] } + 4'd8;
+	// 			8'd45:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 3'd0 , dac_data_reg[7:3] } + 4'd11;
+	// 			8'd46:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + 4'd13;
+	// 			8'd47:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 5'd0 , dac_data_reg[7:5] } + 4'd15;
+	// 			8'd48:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 3'd0 , dac_data_reg[7:3] } + 5'd17;
+	// 			8'd49:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 2'd0 , dac_data_reg[7:3] } + 5'd20;
+	// 			8'd50:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 2'd0 , dac_data_reg[7:3] } + { 6'd0 , dac_data_reg[7:6] } + 5'd22;
+
+	// 			8'd51:	dac_data <= { 4'd0 , dac_data_reg[7:4] } + { 5'd0 , dac_data_reg[7:5] } + 2'd2;
+	// 			8'd52:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 5'd0 , dac_data_reg[7:5] } + 2'd2;
+	// 			8'd53:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 6'd0 , dac_data_reg[7:6] } + 3'd4;
+	// 			8'd54:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 3'd0 , dac_data_reg[7:3] } + 3'd6;
+	// 			8'd55:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + 3'd7;
+	// 			8'd56:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 5'd0 , dac_data_reg[7:5] } + 4'd8;
+	// 			8'd57:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 4'd0 , dac_data_reg[7:4] } + 4'd10;
+	// 			8'd58:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 3'd0 , dac_data_reg[7:3] } + { 4'd0 , dac_data_reg[7:4] } + 4'd11;
+	// 			8'd59:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 2'd0 , dac_data_reg[7:3] } + 4'd12;
+	// 			8'd60:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 2'd0 , dac_data_reg[7:3] } + { 3'd0 , dac_data_reg[7:3] } + 4'd14;
+
+	// 			8'd61:	dac_data <= { 4'd0 , dac_data_reg[7:4] } + 2'd2;
+	// 			8'd62:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 5'd0 , dac_data_reg[7:5] } + 2'd2;
+	// 			8'd63:	dac_data <= { 3'd0 , dac_data_reg[7:3] } + { 4'd0 , dac_data_reg[7:4] } + 2'd3;
+	// 			8'd64:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 5'd0 , dac_data_reg[7:5] } + 2'd3;
+	// 			8'd65:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 4'd0 , dac_data_reg[7:4] } + 3'd4;
+	// 			8'd66:	dac_data <= { 2'd0 , dac_data_reg[7:2] } + { 3'd0 , dac_data_reg[7:3] } + 3'd4;
+	// 			8'd67:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + 3'd5;
+	// 			8'd68:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 4'd0 , dac_data_reg[7:4] } + 3'd5;
+	// 			8'd69:	dac_data <= { 1'd0 , dac_data_reg[7:1] } + { 3'd0 , dac_data_reg[7:3] } + 3'd6;
+	// 			8'd70:	dac_data <= dac_data_reg;
+	// 			default:dac_data <= dac_data;
+	// 			endcase
+	// 	end
+	
+	assign dac_clk = ~ clk;
+	
+endmodule

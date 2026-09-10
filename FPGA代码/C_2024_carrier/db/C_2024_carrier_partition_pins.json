@@ -1,0 +1,105 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "DAC_data_direct[0]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_direct[1]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_direct[2]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_direct[3]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_direct[4]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_direct[5]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_direct[6]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_direct[7]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_multi[0]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_multi[1]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_multi[2]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_multi[3]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_multi[4]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_multi[5]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_multi[6]",
+					"strict" : false
+				},
+				{
+					"name" : "DAC_data_multi[7]",
+					"strict" : false
+				},
+				{
+					"name" : "sys_rst_n",
+					"strict" : false
+				},
+				{
+					"name" : "spi_sdi",
+					"strict" : false
+				},
+				{
+					"name" : "spi_sel",
+					"strict" : false
+				},
+				{
+					"name" : "spi_scl",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tms",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tck",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdi",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdo",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
